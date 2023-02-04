@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public int maxHP = 100;
     public int health;
     public int trapDamage = 10;
-    int gemCount;
+    public int gemCount;
     
     private void Start()
     {

@@ -10,11 +10,11 @@ public class Muzzle : MonoBehaviour
     [SerializeField] float spawnRate;
     [HideInInspector] public Vector3 spawnPosition;
     float spawnTimer;
-    
+    PlayerMovement pM;
 
     private void Start()
     {
-
+        pM = FindObjectOfType<PlayerMovement>();
     }
     private void Update()
     {
@@ -32,7 +32,7 @@ public class Muzzle : MonoBehaviour
         {
             Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
         }
-        else if(Input.GetKey(KeyCode.E))
+        else if(pM.gemCount > 0 && Input.GetKeyDown(KeyCode.E) )
         {
             Instantiate(bombToSpawn, spawnPosition, Quaternion.identity);
         }

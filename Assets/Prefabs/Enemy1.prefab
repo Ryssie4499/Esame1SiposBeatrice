@@ -135,7 +135,8 @@ MonoBehaviour:
   maxHP: 30
   health: 0
   movementSpeed: 1
-  bulletDamage: 30
+  bulletDamage: 10
+  bombDamage: 30
 --- !u!65 &3975281368338166945
 BoxCollider:
   m_ObjectHideFlags: 0

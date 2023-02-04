@@ -10,8 +10,9 @@ public class EnemyManager : MonoBehaviour
     public int maxHP = 30;
     public int health;
     public int movementSpeed;
-    public int bulletDamage = 30;
-    int probability;
+    public int bulletDamage = 10;
+    public int bombDamage = 30;
+    int chance;
     int points;
     private void Start()
     {
@@ -31,15 +32,26 @@ public class EnemyManager : MonoBehaviour
                 health -= bulletDamage;
             if (health <= 0)
             {
-                probability = Random.Range(0, 4);
-                if(probability==3)
+                chance = Random.Range(0, 4);
+                if(chance==3)
                 {
                     Instantiate(BombGem, transform.position, Quaternion.identity);
                 }
-                else
+                
+                else if(chance==0)
                 {
                     Instantiate(EnemyWeapon, transform.position, Quaternion.identity);
                 }
+                EnemyDefeat();
+            }
+        }
+        if (coll.collider.CompareTag("Bomb"))
+        {
+            points += 40;
+            if (health > 0)
+                health -= bombDamage;
+            if (health <= 0)
+            {
                 EnemyDefeat();
             }
         }
