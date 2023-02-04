@@ -5,6 +5,7 @@ using UnityEngine;
 public class Muzzle : MonoBehaviour
 {
     [SerializeField] public GameObject bulletToSpawn;
+    [SerializeField] public GameObject bombToSpawn;
     [SerializeField] public GameObject muzzle;
     [SerializeField] float spawnRate;
     [HideInInspector] public Vector3 spawnPosition;
@@ -29,8 +30,11 @@ public class Muzzle : MonoBehaviour
         }
         else if (Input.GetButtonDown("Jump"))
         {
-            //spawnPosition = new Vector3(muzzle.transform.position.x, muzzle.transform.position.y, muzzle.transform.position.z);
             Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
+        }
+        else if(Input.GetKey(KeyCode.E))
+        {
+            Instantiate(bombToSpawn, spawnPosition, Quaternion.identity);
         }
     }
 }

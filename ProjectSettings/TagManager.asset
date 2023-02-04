@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - CamBoundaries
+  - Bullet
+  - BombGem
+  - EnemyWeapon
   layers:
   - Default
   - TransparentFX

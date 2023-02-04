@@ -173,6 +173,9 @@ MonoBehaviour:
   tileSize: 18
   scrollSpeed: 0.098
   viewZone: 10
+  tiles: []
+  leftIndex: 0
+  rightIndex: 0
 --- !u!1 &152657866
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,6 +536,9 @@ MonoBehaviour:
   tileSize: 20
   scrollSpeed: 0.1
   viewZone: 8
+  tiles: []
+  leftIndex: 0
+  rightIndex: 0
 --- !u!1 &810144702
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,6 +949,9 @@ MonoBehaviour:
   tileSize: 19
   scrollSpeed: 0.098
   viewZone: 10
+  tiles: []
+  leftIndex: 0
+  rightIndex: 0
 --- !u!1 &1289357562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,6 +1096,9 @@ MonoBehaviour:
   tileSize: 45
   scrollSpeed: 0.05
   viewZone: 10
+  tiles: []
+  leftIndex: 0
+  rightIndex: 0
 --- !u!4 &2020861029 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 239275667217701749, guid: aeaef0a1b9776834184a03e499f2b1b6, type: 3}
@@ -1324,6 +1336,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3294523665765265221, guid: 39bd5ff05680b6b4e960cdca7caf27db, type: 3}
+      propertyPath: maxHP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3294523665765265221, guid: 39bd5ff05680b6b4e960cdca7caf27db, type: 3}
+      propertyPath: startPoint
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3294523665765265221, guid: 39bd5ff05680b6b4e960cdca7caf27db, type: 3}
+      propertyPath: trapDamage
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3294523667164599540, guid: 39bd5ff05680b6b4e960cdca7caf27db, type: 3}
       propertyPath: m_RootOrder
       value: 7

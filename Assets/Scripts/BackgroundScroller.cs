@@ -9,8 +9,8 @@ public class BackgroundScroller : MonoBehaviour
     [SerializeField] float viewZone = 1;                                                            //metro
     //references
     private Transform cameraTransform;
-    private Transform[] tiles;
-    private int leftIndex, rightIndex;
+    public Transform[] tiles;
+    public int leftIndex, rightIndex;
     private float lastCameraX;
     
     void Start()

@@ -111,7 +111,7 @@ Transform:
   m_GameObject: {fileID: 8047838779272032381}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 30, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8047838779417560701}
@@ -130,7 +130,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d02611adf434c945a96fbc872d62fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BombGem: {fileID: 8229384787176473064, guid: 18d33f837a1be1c499294effb5b3c81c, type: 3}
+  EnemyWeapon: {fileID: 7849164112745919480, guid: ee01b287f820acb4585556e91dd8c753, type: 3}
+  maxHP: 30
+  health: 0
   movementSpeed: 1
+  bulletDamage: 30
 --- !u!65 &3975281368338166945
 BoxCollider:
   m_ObjectHideFlags: 0

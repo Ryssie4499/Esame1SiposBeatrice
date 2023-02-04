@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletToSpawn: {fileID: 7625991425141865404, guid: b7520651fa401ff41aa53389ad1ff99f, type: 3}
+  bombToSpawn: {fileID: 0}
   muzzle: {fileID: 618649644}
   spawnRate: 0.2
   spawnPosition: {x: 0, y: 0, z: 0}
@@ -287,9 +288,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 3294523667164599541}
+  startPoint: {fileID: 0}
   cameraSpeed: 2
   speed: 15
   boundaryHeight: 5
+  maxHP: 100
+  health: 0
+  trapDamage: 30
 --- !u!54 &4493431946398015881
 Rigidbody:
   m_ObjectHideFlags: 0
