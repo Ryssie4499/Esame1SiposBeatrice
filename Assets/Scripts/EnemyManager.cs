@@ -9,12 +9,10 @@ public class EnemyManager : MonoBehaviour
     public int health;
     public int movementSpeed;
     public int bulletDamage = 30;
-    //Bullet bul;
     private void Start()
     {
         health = maxHP;
-        //bul = FindObjectOfType<Bullet>();
-        gameObject.SetActive(true);
+        
     }
 
     void Update()
@@ -31,14 +29,13 @@ public class EnemyManager : MonoBehaviour
             {
                 EnemyDefeat();
             }
-
         }
     }
     public void EnemyDefeat()
     {
         if(health == 0)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }
