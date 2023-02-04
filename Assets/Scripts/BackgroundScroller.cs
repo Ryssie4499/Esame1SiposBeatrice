@@ -12,6 +12,7 @@ public class BackgroundScroller : MonoBehaviour
     private Transform[] tiles;
     private int leftIndex, rightIndex;
     private float lastCameraX;
+    
     void Start()
     {
         cameraTransform = Camera.main.transform;
@@ -38,22 +39,6 @@ public class BackgroundScroller : MonoBehaviour
         }
 
 
-    }
-    private void SwitchLeft()
-    {
-        if (tiles.Length < 2) return;
-        //sposto tile a sinistra
-        tiles[rightIndex].position = Vector3.right * (tiles[leftIndex].position.x - tileSize);
-
-        //aggiorno indici
-        leftIndex = rightIndex;
-        rightIndex--;
-
-        //controllo che l'indice non sfori la size dell'array
-        if (rightIndex < 0)
-        {
-            rightIndex = tiles.Length - 1;
-        }
     }
     private void SwitchRight()
     {

@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 3294523667164599541}
-  cameraSpeed: 1.5
+  cameraSpeed: 2
   speed: 15
   boundaryHeight: 5
 --- !u!54 &4493431946398015881
