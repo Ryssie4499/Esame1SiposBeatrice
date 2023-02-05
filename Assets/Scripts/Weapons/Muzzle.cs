@@ -9,12 +9,13 @@ public class Muzzle : MonoBehaviour
     [SerializeField] public GameObject muzzle;
     [SerializeField] float spawnRate;
     [HideInInspector] public Vector3 spawnPosition;
-    
+    float numColpi;
     float spawnTimer;
     PlayerMovement pM;
 
     private void Start()
     {
+        numColpi = 10;
         pM = FindObjectOfType<PlayerMovement>();
     }
     private void Update()
@@ -23,21 +24,42 @@ public class Muzzle : MonoBehaviour
         spawnTimer += Time.deltaTime;
         if (Input.GetButton("Jump"))
         {
-            if (spawnTimer >= spawnRate)
+            if (spawnTimer >= spawnRate && numColpi>0)
             {
                 Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
+                numColpi--;
                 spawnTimer = 0;
+            }
+            else if (numColpi <=0)
+            {
+                StartCoroutine(maxColpi());
             }
         }
         else if (Input.GetButtonDown("Jump"))
         {
-            Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
+            if(spawnTimer >= spawnRate && numColpi > 0)
+            {
+                Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
+                numColpi--;
+                spawnTimer = 0;
+            }
+            else
+            {
+                StartCoroutine(maxColpi());
+            }
         }
-        else if(pM.gemCount > 0 && Input.GetKeyDown(KeyCode.E) )
+        else if(spawnTimer >= spawnRate && pM.gemCount > 0 && Input.GetKeyDown(KeyCode.E) )
         {
             Instantiate(bombToSpawn, spawnPosition, Quaternion.identity);
+            spawnTimer = 0;
         }
 
+    }
+
+    IEnumerator maxColpi()
+    {
+        yield return new WaitForSeconds(3);
+        numColpi = 10;
     }
 }
 

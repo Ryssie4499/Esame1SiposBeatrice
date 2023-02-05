@@ -16,10 +16,7 @@ public class Bomb : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Enemy"))
-        {
             Destroy(gameObject);
             pM.gemCount--;
-        }
     }
 }
