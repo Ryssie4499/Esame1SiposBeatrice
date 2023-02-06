@@ -9,13 +9,14 @@ public class Muzzle : MonoBehaviour
     [SerializeField] public GameObject muzzle;
     [SerializeField] float spawnRate;
     [HideInInspector] public Vector3 spawnPosition;
-    float numColpi;
+    public float numMaxColpi = 10;
+    public float numColpi;
     float spawnTimer;
     PlayerMovement pM;
 
     private void Start()
     {
-        numColpi = 10;
+        numColpi = numMaxColpi;
         pM = FindObjectOfType<PlayerMovement>();
     }
     private void Update()
@@ -39,8 +40,8 @@ public class Muzzle : MonoBehaviour
         {
             if(spawnTimer >= spawnRate && numColpi > 0)
             {
+                StartCoroutine(timerColpi());
                 Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
-                numColpi--;
                 spawnTimer = 0;
             }
             else
@@ -58,8 +59,13 @@ public class Muzzle : MonoBehaviour
 
     IEnumerator maxColpi()
     {
+        yield return new WaitForSeconds(2);
+        numColpi = numMaxColpi;
+    }
+    IEnumerator timerColpi()
+    {
         yield return new WaitForSeconds(3);
-        numColpi = 10;
+        numColpi = 0;
     }
 }
 
