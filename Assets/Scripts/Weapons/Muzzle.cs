@@ -9,11 +9,11 @@ public class Muzzle : MonoBehaviour
     [SerializeField] public GameObject muzzle;
     [SerializeField] float spawnRate;
     [HideInInspector] public Vector3 spawnPosition;
-    public float numMaxColpi = 10;
+    public float numMaxColpi = 20;
     public float numColpi;
     float spawnTimer;
     PlayerMovement pM;
-
+    
     private void Start()
     {
         numColpi = numMaxColpi;
@@ -64,8 +64,9 @@ public class Muzzle : MonoBehaviour
     }
     IEnumerator timerColpi()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(4);
         numColpi = 0;
     }
+    
 }
 

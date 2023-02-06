@@ -16,7 +16,7 @@ public class Bomb : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-            Destroy(gameObject);
-            pM.gemCount--;
+        Destroy(gameObject);
+        pM.gemCount--;
     }
 }

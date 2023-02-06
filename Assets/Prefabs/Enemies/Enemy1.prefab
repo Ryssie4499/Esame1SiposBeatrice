@@ -132,12 +132,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BombGem: {fileID: 8229384787176473064, guid: 18d33f837a1be1c499294effb5b3c81c, type: 3}
+  XP: {fileID: 4570880857295252099, guid: 9cc6da5e62bd11849a3f49cd86b01340, type: 3}
   EnemyWeapon: {fileID: 7849164112745919480, guid: ee01b287f820acb4585556e91dd8c753, type: 3}
   maxHP: 30
   health: 0
   movementSpeed: 2
   bulletDamage: 10
   bombDamage: 30
+  defeat: 0
 --- !u!65 &3975281368338166945
 BoxCollider:
   m_ObjectHideFlags: 0

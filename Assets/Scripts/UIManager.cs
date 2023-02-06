@@ -10,8 +10,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject tutorialMove;
     [SerializeField] public GameObject tutorialShoot;
     [SerializeField] public GameObject tutorialBomb;
+    [SerializeField] public TextMeshProUGUI gemsText;
+    [SerializeField] public TextMeshProUGUI XPText;
     [SerializeField] Image ShootingBar;
-    public int pressNum, numGems;
+    [SerializeField] Image HPBar;
+    [HideInInspector] public int pressNum, numGems;
+
     PlayerMovement pM;
     Muzzle m;
     void Start()
@@ -24,7 +28,10 @@ public class UIManager : MonoBehaviour
         MoveTutorial();
         ShootingTutorial();
         BombTutorial();
+        XPText.text = pM.XPCount.ToString("000");
+        gemsText.text = pM.gemCount.ToString();
         ShootingBar.fillAmount = m.numColpi / m.numMaxColpi;
+        HPBar.fillAmount = (float)pM.health / pM.maxHP;
     }
     public void MoveTutorial()
     {
@@ -52,13 +59,14 @@ public class UIManager : MonoBehaviour
             if (pM.gemCount == 1)
             {
                 tutorialBomb.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    tutorialBomb.SetActive(false);
-                    numGems++;
-                }
+                numGems++;
             }
         }
+        else if (Input.GetKeyDown(KeyCode.E) && numGems == 1)
+        {
+            tutorialBomb.SetActive(false);
+        }
     }
+    
     
 }

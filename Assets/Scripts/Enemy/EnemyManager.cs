@@ -6,14 +6,15 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public GameObject BombGem;
+    public GameObject XP;
     public GameObject EnemyWeapon;
     public int maxHP = 30;
     public int health;
     public int movementSpeed;
     public int bulletDamage = 10;
     public int bombDamage = 30;
-    public int bulletPoints, bombPoints; //, totBullet, totBomb, totXP
     int chance;
+
     private void Start()
     {
         health = maxHP;
@@ -21,20 +22,18 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
-        //XPPoints();
-        //totBullet += bulletPoints;
-        //totBomb += bombPoints;
         transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
     }
     private void OnCollisionEnter(Collision coll)
     {
         if (coll.collider.CompareTag("Bullet"))
         {
-            bulletPoints += 20;
             if (health > 0)
                 health -= bulletDamage;
             if (health <= 0)
             {
+                Instantiate(XP, transform.position, Quaternion.identity);
+                
                 chance = Random.Range(0, 4);
                 if (chance == 3)
                 {
@@ -50,7 +49,6 @@ public class EnemyManager : MonoBehaviour
         }
         if (coll.collider.CompareTag("Bomb"))
         {
-            bombPoints += 40;
             if (health > 0)
                 health -= bombDamage;
             if (health <= 0)
@@ -58,6 +56,7 @@ public class EnemyManager : MonoBehaviour
                 EnemyDefeat();
             }
         }
+        
     }
     public void EnemyDefeat()
     {
@@ -66,8 +65,5 @@ public class EnemyManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    //public void XPPoints()
-    //{
-    //    totXP = totBullet + totBomb;
-    //}
+   
 }

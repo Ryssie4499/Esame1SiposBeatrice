@@ -25,11 +25,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8815408967768250758, guid: bb72b098c1913804ab55430494e149d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 26.48
+      value: 4.405098
       objectReference: {fileID: 0}
     - target: {fileID: 8815408967768250758, guid: bb72b098c1913804ab55430494e149d1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -5.271185
       objectReference: {fileID: 0}
     - target: {fileID: 8815408967768250758, guid: bb72b098c1913804ab55430494e149d1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -67,6 +67,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy2
       objectReference: {fileID: 0}
+    - target: {fileID: 8815408967768250776, guid: bb72b098c1913804ab55430494e149d1, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 8815408969044106534, guid: bb72b098c1913804ab55430494e149d1, type: 3}
       propertyPath: m_Color.b
       value: 0.36763072
@@ -99,36 +103,44 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6030416553451157482, guid: bb72b098c1913804ab55430494e149d1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bb72b098c1913804ab55430494e149d1, type: 3}
 --- !u!1 &8072751461679732053 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8815408967768250776, guid: bb72b098c1913804ab55430494e149d1, type: 3}
   m_PrefabInstance: {fileID: 747231877125967053}
   m_PrefabAsset: {fileID: 0}
---- !u!61 &338401395
-BoxCollider2D:
+--- !u!65 &-7737474006940725128
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8072751461679732053}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7, y: 2, z: 20}
+  m_Center: {x: 0.36, y: 0, z: 0}
+--- !u!114 &5475274652443171998
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8072751461679732053}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d02611adf434c945a96fbc872d62fcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BombGem: {fileID: 5732092566269569870, guid: a707de7c8c7bae347bf63707c26c16a8, type: 3}
+  XP: {fileID: 4570880857295252099, guid: 9cc6da5e62bd11849a3f49cd86b01340, type: 3}
+  EnemyWeapon: {fileID: 4745489776690239638, guid: c9e00656f22a435468c167e4f93a6f35, type: 3}
+  maxHP: 100
+  health: 0
+  movementSpeed: 1
+  bulletDamage: 20
+  bombDamage: 50
