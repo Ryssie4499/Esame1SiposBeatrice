@@ -49,6 +49,7 @@ public class EnemyManager : MonoBehaviour
         }
         if (coll.collider.CompareTag("Bomb"))
         {
+            Instantiate(XP, transform.position, Quaternion.identity);
             if (health > 0)
                 health -= bombDamage;
             if (health <= 0)

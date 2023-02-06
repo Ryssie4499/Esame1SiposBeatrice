@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Player")]
-    [SerializeField] GameObject player;                     
+    [SerializeField] GameObject player;
     [SerializeField] float playerSpeed = 15f;                   //velocità del player editabile
 
     [Header("Camera")]
@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 pOldPos;                                            //posizioni vecchie per i boundaries
     Vector2 pStartPos;
-    
+
     private void Start()
     {
         //setto la vita del player iniziale uguale al massimo e la posizione iniziale alla posizione attuale del player
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 move = new Vector2(p1HMove, p1VMove);
         player.transform.Translate(move * Time.deltaTime * playerSpeed);
-        
+
         //controllo la posizione rispetto ai limiti della mappa (upper e lower insieme)
 
         if (Mathf.Abs(player.transform.position.y) > boundaryHeight)
@@ -81,15 +81,18 @@ public class PlayerMovement : MonoBehaviour
             gemCount++;
             other.gameObject.SetActive(false);
         }
-        if(other.CompareTag("XP"))
+        if (other.CompareTag("XP"))
         {
             XPCount += 20;
             other.gameObject.SetActive(false);
         }
-        if(other.CompareTag("EndLevel"))
+        if (other.CompareTag("EndLevel"))
         {
             SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
-            levelCount++;
+        }
+        if (other.CompareTag("StartLevel"))
+        {
+            levelCount=1;
         }
     }
 
@@ -109,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
             }
             coll.gameObject.SetActive(false);
         }
-        if(coll.collider.CompareTag("Enemy"))
+        if (coll.collider.CompareTag("Enemy"))
         {
             if (health > 0)
             {
@@ -121,23 +124,25 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    
 
     //alla morte del player, la scena si resetta e il gioco ricomincia da capo, senza collectible e con i massimi HP
 
     public void Death()
     {
-        if (health == 0 && levelCount == 0)
+        if (health == 0)
         {
-            SceneManager.LoadScene("Level_1", LoadSceneMode.Single);
-            gemCount = 0;
-            health = maxHP;
-        }
-        else if(health == 0 && levelCount == 1)
-        {
-            SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
-            gemCount = 0;
-            health = maxHP;
+            if (levelCount == 0)
+            {
+                SceneManager.LoadScene("Level_1", LoadSceneMode.Single);
+                gemCount = 0;
+                health = maxHP;
+            }
+            else if (levelCount == 1)
+            {
+                SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
+                gemCount = 0;
+                health = maxHP;
+            }
         }
     }
 

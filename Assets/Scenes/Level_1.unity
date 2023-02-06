@@ -1832,7 +1832,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.6
+  m_fontSize: 18
   m_fontSizeBase: 21.02
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2998,7 +2998,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24.25
+  m_fontSize: 19.05
   m_fontSizeBase: 21.02
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3325,7 +3325,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.1
+  m_fontSize: 18.4
   m_fontSizeBase: 28.08
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3983,6 +3983,10 @@ PrefabInstance:
     - target: {fileID: 3808010923876322190, guid: 2027cb282b524e94b810beb7d9e32a1d, type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 3808010923950444440, guid: 2027cb282b524e94b810beb7d9e32a1d, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2027cb282b524e94b810beb7d9e32a1d, type: 3}
