@@ -142,5 +142,6 @@ MonoBehaviour:
   maxHP: 100
   health: 0
   movementSpeed: 1
+  bulletSpeed: 3
   bulletDamage: 20
   bombDamage: 50

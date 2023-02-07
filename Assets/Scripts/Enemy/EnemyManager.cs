@@ -10,19 +10,23 @@ public class EnemyManager : MonoBehaviour
     public GameObject EnemyWeapon;
     public int maxHP = 30;
     public int health;
-    public int movementSpeed;
+    public int movementSpeed, bulletSpeed;
     public int bulletDamage = 10;
     public int bombDamage = 30;
     int chance;
-
+    //int numOfBullets;
+    //float spawnTimer;
+    PlayerMovement pM;
     private void Start()
     {
+        pM = FindObjectOfType<PlayerMovement>();
         health = maxHP;
     }
 
     void Update()
     {
         transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
+        //EnemyBullet();
     }
     private void OnCollisionEnter(Collision coll)
     {
@@ -33,14 +37,14 @@ public class EnemyManager : MonoBehaviour
             if (health <= 0)
             {
                 Instantiate(XP, transform.position, Quaternion.identity);
-                
+
                 chance = Random.Range(0, 4);
                 if (chance == 3)
                 {
                     Instantiate(BombGem, transform.position, Quaternion.identity);
                 }
 
-                else if (chance == 0)
+                else if (chance == 0 && pM.levelCount == 0)
                 {
                     Instantiate(EnemyWeapon, transform.position, Quaternion.identity);
                 }
@@ -57,7 +61,7 @@ public class EnemyManager : MonoBehaviour
                 EnemyDefeat();
             }
         }
-        
+
     }
     public void EnemyDefeat()
     {
@@ -66,5 +70,23 @@ public class EnemyManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-   
+    //public void EnemyBullet()
+    //{
+    //    if (pM.levelCount == 1)
+    //    {
+    //        StartCoroutine(timeToShoot());
+    //        spawnTimer += Time.deltaTime;
+    //        if (numOfBullets < 1)
+    //        {
+    //            Instantiate(EnemyWeapon, new Vector3(transform.position.x - 5f, transform.position.y, transform.position.z), Quaternion.identity);
+    //            spawnTimer = 0;
+    //            numOfBullets++;
+    //        }
+    //        EnemyWeapon.transform.Translate(Vector3.left * bulletSpeed * Time.deltaTime);
+    //    }
+    //}
+    //IEnumerator timeToShoot()
+    //{
+    //    yield return new WaitForSeconds(20);
+    //}
 }

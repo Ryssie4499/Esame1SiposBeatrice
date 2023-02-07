@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2299484025583629545, guid: b7520651fa401ff41aa53389ad1ff99f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -329.61276
       objectReference: {fileID: 0}
     - target: {fileID: 2299484025583629545, guid: b7520651fa401ff41aa53389ad1ff99f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5923326949297402648, guid: b7520651fa401ff41aa53389ad1ff99f, type: 3}
       propertyPath: speed
-      value: -10
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 7625991425141865404, guid: b7520651fa401ff41aa53389ad1ff99f, type: 3}
       propertyPath: m_Name
@@ -79,5 +79,6 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.20911066
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5923326949297402648, guid: b7520651fa401ff41aa53389ad1ff99f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b7520651fa401ff41aa53389ad1ff99f, type: 3}
