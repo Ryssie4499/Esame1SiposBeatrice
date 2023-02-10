@@ -10,12 +10,13 @@ public class EnemyManager : MonoBehaviour
     public GameObject EnemyWeapon;
     public int maxHP = 30;
     public int health;
-    public int movementSpeed, bulletSpeed;
+    public int movementSpeed;
     public int bulletDamage = 10;
     public int bombDamage = 30;
+    [SerializeField] int spawnRate;
     int chance;
-    //int numOfBullets;
-    //float spawnTimer;
+    int numOfBullets;
+    float spawnTimer;
     PlayerMovement pM;
     private void Start()
     {
@@ -26,7 +27,7 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
-        //EnemyBullet();
+        EnemyBullet();
     }
     private void OnCollisionEnter(Collision coll)
     {
@@ -70,23 +71,23 @@ public class EnemyManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    //public void EnemyBullet()
-    //{
-    //    if (pM.levelCount == 1)
-    //    {
-    //        StartCoroutine(timeToShoot());
-    //        spawnTimer += Time.deltaTime;
-    //        if (numOfBullets < 1)
-    //        {
-    //            Instantiate(EnemyWeapon, new Vector3(transform.position.x - 5f, transform.position.y, transform.position.z), Quaternion.identity);
-    //            spawnTimer = 0;
-    //            numOfBullets++;
-    //        }
-    //        EnemyWeapon.transform.Translate(Vector3.left * bulletSpeed * Time.deltaTime);
-    //    }
-    //}
-    //IEnumerator timeToShoot()
-    //{
-    //    yield return new WaitForSeconds(20);
-    //}
+    public void EnemyBullet()
+    {
+        if (pM.levelCount == 1)
+        {
+            StartCoroutine(timeToShoot());
+            spawnTimer += Time.deltaTime;
+            if (spawnTimer >= spawnRate)
+            {
+                Instantiate(EnemyWeapon, new Vector3(transform.position.x - 5f, transform.position.y, transform.position.z), Quaternion.identity);
+                spawnTimer = 0;
+                numOfBullets++;
+            }
+            
+        }
+    }
+    IEnumerator timeToShoot()
+    {
+        yield return new WaitForSeconds(20);
+    }
 }

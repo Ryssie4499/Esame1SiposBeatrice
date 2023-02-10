@@ -88,11 +88,18 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.CompareTag("EndLevel"))
         {
-            SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
+            if(levelCount==0)
+            {
+                SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
+            }
+            if (levelCount == 1)
+            {
+                SceneManager.LoadScene("Level_3", LoadSceneMode.Single);
+            }
         }
         if (other.CompareTag("StartLevel"))
         {
-            levelCount=1;
+            levelCount++;
         }
     }
 

@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7625991425141865404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 183.81409, y: -0.127, z: 0}
+  m_LocalPosition: {x: 1234.2737, y: -0.127, z: 0}
   m_LocalScale: {x: 2.5, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -99,7 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500896311c822db45ad903db6298a4c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyWeapon: {fileID: 4745489776690239638, guid: c9e00656f22a435468c167e4f93a6f35, type: 3}
+  PlayerWeapon: {fileID: 7625991425141865404}
   speed: 10
+  bulletSpeed: 10
 --- !u!54 &1616804466825395562
 Rigidbody:
   m_ObjectHideFlags: 0
