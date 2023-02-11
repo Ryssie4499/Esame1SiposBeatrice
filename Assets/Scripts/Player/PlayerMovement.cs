@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     public int XPCount;
     public int levelCount;
 
+    public bool cameraStop;
+
     Vector2 pOldPos;                                            //posizioni vecchie per i boundaries
     Vector2 pStartPos;
 
@@ -36,9 +38,15 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         //la camera si muove a velocità costante verso destra
-
-        Camera.main.transform.Translate(Vector3.right * cameraSpeed * Time.deltaTime);
-        MovePlayer();
+        if (cameraStop == false)
+        {
+            Camera.main.transform.Translate(Vector3.right * cameraSpeed * Time.deltaTime);
+        }
+        else
+        {
+            Camera.main.transform.Translate(Vector3.zero);
+        }
+            MovePlayer();
     }
 
     private void MovePlayer()
@@ -88,13 +96,18 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.CompareTag("EndLevel"))
         {
-            if(levelCount==0)
+            if (levelCount == 0)
             {
                 SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
             }
             if (levelCount == 1)
             {
                 SceneManager.LoadScene("Level_3", LoadSceneMode.Single);
+            }
+            if (levelCount >= 2)
+            {
+                cameraStop = true;
+                Debug.Log("Mi fermo!");
             }
         }
         if (other.CompareTag("StartLevel"))
@@ -147,6 +160,12 @@ public class PlayerMovement : MonoBehaviour
             else if (levelCount == 1)
             {
                 SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
+                gemCount = 0;
+                health = maxHP;
+            }
+            else if (levelCount == 2)
+            {
+                SceneManager.LoadScene("Level_3", LoadSceneMode.Single);
                 gemCount = 0;
                 health = maxHP;
             }
