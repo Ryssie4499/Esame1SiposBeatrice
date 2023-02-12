@@ -15,7 +15,6 @@ public class EnemyManager : MonoBehaviour
     public int bombDamage = 30;
     [SerializeField] int spawnRate;
     int chance;
-    int numOfBullets;
     float spawnTimer;
     PlayerMovement pM;
     private void Start()
@@ -75,19 +74,13 @@ public class EnemyManager : MonoBehaviour
     {
         if (pM.levelCount == 1)
         {
-            StartCoroutine(timeToShoot());
             spawnTimer += Time.deltaTime;
             if (spawnTimer >= spawnRate)
             {
                 Instantiate(EnemyWeapon, new Vector3(transform.position.x - 5f, transform.position.y, transform.position.z), Quaternion.identity);
                 spawnTimer = 0;
-                numOfBullets++;
             }
             
         }
-    }
-    IEnumerator timeToShoot()
-    {
-        yield return new WaitForSeconds(20);
     }
 }

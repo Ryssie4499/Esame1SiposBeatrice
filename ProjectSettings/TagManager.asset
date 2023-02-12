@@ -13,6 +13,7 @@ TagManager:
   - XP
   - EndLevel
   - StartLevel
+  - StopCamera
   layers:
   - Default
   - TransparentFX

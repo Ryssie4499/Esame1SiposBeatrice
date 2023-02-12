@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float playerSpeed = 15f;                   //velocità del player editabile
 
     [Header("Camera")]
-    [SerializeField] float cameraSpeed;                         //velocità della camera editabile
     [SerializeField] float boundaryHeight = 5f;                 //altezza contorni editabile
 
     [Header("Stats")]
@@ -23,10 +22,12 @@ public class PlayerMovement : MonoBehaviour
     public int XPCount;
     public int levelCount;
 
-    public bool cameraStop;
+    [SerializeField] GameObject BossHealthBar;
 
     Vector2 pOldPos;                                            //posizioni vecchie per i boundaries
     Vector2 pStartPos;
+
+    CameraMove cM;
 
     private void Start()
     {
@@ -34,19 +35,12 @@ public class PlayerMovement : MonoBehaviour
 
         health = maxHP;
         pStartPos = player.transform.position;
+
+        cM = FindObjectOfType<CameraMove>();
     }
     private void Update()
     {
-        //la camera si muove a velocità costante verso destra
-        if (cameraStop == false)
-        {
-            Camera.main.transform.Translate(Vector3.right * cameraSpeed * Time.deltaTime);
-        }
-        else
-        {
-            Camera.main.transform.Translate(Vector3.zero);
-        }
-            MovePlayer();
+        MovePlayer();
     }
 
     private void MovePlayer()
@@ -104,15 +98,19 @@ public class PlayerMovement : MonoBehaviour
             {
                 SceneManager.LoadScene("Level_3", LoadSceneMode.Single);
             }
-            if (levelCount >= 2)
-            {
-                cameraStop = true;
-                Debug.Log("Mi fermo!");
-            }
+            
         }
         if (other.CompareTag("StartLevel"))
         {
             levelCount++;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("StopCamera"))
+        {
+            cM.cameraStop = true;
+            BossHealthBar.SetActive(true);
         }
     }
 

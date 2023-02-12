@@ -13,13 +13,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI gemsText;
     [SerializeField] public TextMeshProUGUI XPText;
     [SerializeField] Image ShootingBar;
-    [SerializeField] Image HPBar;
+    [SerializeField] Image HPBar, BossHPBar;
     [HideInInspector] public int pressNum, numGems;
 
+    BossManager bM;
     PlayerMovement pM;
     Muzzle m;
     void Start()
     {
+        bM = FindObjectOfType<BossManager>();
         pM = FindObjectOfType<PlayerMovement>();
         m = FindObjectOfType<Muzzle>();
     }
@@ -32,6 +34,7 @@ public class UIManager : MonoBehaviour
         gemsText.text = pM.gemCount.ToString();
         ShootingBar.fillAmount = m.numColpi / m.numMaxColpi;
         HPBar.fillAmount = (float)pM.health / pM.maxHP;
+        BossHPBar.fillAmount = (float)bM.health / bM.maxHP;
     }
     public void MoveTutorial()
     {
