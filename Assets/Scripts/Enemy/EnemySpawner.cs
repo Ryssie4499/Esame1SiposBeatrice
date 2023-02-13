@@ -38,7 +38,7 @@ public class EnemySpawner : MonoBehaviour
             }
             if (pM.levelCount == 1)
             {
-                if (numOfEnemies < 5)
+                if (numOfEnemies < 3)
                 {
                     GameObject enemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
                     spawnTimer = 0;

@@ -10,17 +10,25 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject tutorialMove;
     [SerializeField] public GameObject tutorialShoot;
     [SerializeField] public GameObject tutorialBomb;
+
     [SerializeField] public TextMeshProUGUI gemsText;
     [SerializeField] public TextMeshProUGUI XPText;
+    [SerializeField] public TextMeshProUGUI totText;
+
     [SerializeField] Image ShootingBar;
     [SerializeField] Image HPBar, BossHPBar;
-    [HideInInspector] public int pressNum, numGems;
 
+    [HideInInspector] public int pressNum, numGems;
+    [HideInInspector] public int score;
+
+    Score sc;
     BossManager bM;
     PlayerMovement pM;
     Muzzle m;
+
     void Start()
     {
+        sc = FindObjectOfType<Score>();
         bM = FindObjectOfType<BossManager>();
         pM = FindObjectOfType<PlayerMovement>();
         m = FindObjectOfType<Muzzle>();
@@ -31,6 +39,8 @@ public class UIManager : MonoBehaviour
         ShootingTutorial();
         BombTutorial();
         XPText.text = pM.XPCount.ToString("000");
+        score = sc.CurrentScore;
+        totText.text = score.ToString("000");
         gemsText.text = pM.gemCount.ToString();
         ShootingBar.fillAmount = m.numColpi / m.numMaxColpi;
         HPBar.fillAmount = (float)pM.health / pM.maxHP;

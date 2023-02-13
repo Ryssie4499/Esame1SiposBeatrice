@@ -9,8 +9,8 @@ public class BossManager : MonoBehaviour
     public int health;
     public int bulletDamage = 10;
     public int bombDamage = 30;
-    [SerializeField] float spawnRate, otherSpawnRate;
-    float spawnTimer, otherSpawnTimer;
+    [SerializeField] float spawnRate, otherSpawnRate, rareSpawnRate, r2SpawnRate;
+    float spawnTimer, otherSpawnTimer, rareSpawnTimer, r2SpawnTimer;
     private void Start()
     {
         health = maxHP;
@@ -62,5 +62,18 @@ public class BossManager : MonoBehaviour
             Instantiate(BossWeapon, new Vector3(transform.position.x - 12f, transform.position.y - 4f, transform.position.z), Quaternion.identity);
             otherSpawnTimer = 0;
         }
+        rareSpawnTimer += Time.deltaTime;
+        if (rareSpawnTimer >= rareSpawnRate)
+        {
+            Instantiate(BossWeapon, new Vector3(transform.position.x - 12f, transform.position.y + 2f, transform.position.z), Quaternion.identity);
+            rareSpawnTimer = 0;
+        }
+        r2SpawnTimer += Time.deltaTime;
+        if (r2SpawnTimer >= r2SpawnRate)
+        {
+            Instantiate(BossWeapon, new Vector3(transform.position.x - 12f, transform.position.y - 2f, transform.position.z), Quaternion.identity);
+            r2SpawnTimer = 0;
+        }
+       
     }
 }

@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 pStartPos;
 
     CameraMove cM;
-
+    Score sc;
     private void Start()
     {
         //setto la vita del player iniziale uguale al massimo e la posizione iniziale alla posizione attuale del player
@@ -36,11 +36,13 @@ public class PlayerMovement : MonoBehaviour
         health = maxHP;
         pStartPos = player.transform.position;
 
+        sc = FindObjectOfType<Score>();
         cM = FindObjectOfType<CameraMove>();
     }
     private void Update()
     {
         MovePlayer();
+        sc.UpdateScore(sc.CurrentScore);
     }
 
     private void MovePlayer()
@@ -85,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.CompareTag("XP"))
         {
+            sc.CurrentScore += 20;  
             XPCount += 20;
             other.gameObject.SetActive(false);
         }
