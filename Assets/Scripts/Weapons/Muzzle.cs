@@ -13,48 +13,51 @@ public class Muzzle : MonoBehaviour
     public float numColpi;
     float spawnTimer;
     PlayerMovement pM;
-    
+    GameManager GM;
     private void Start()
     {
         numColpi = numMaxColpi;
         pM = FindObjectOfType<PlayerMovement>();
+        GM = FindObjectOfType<GameManager>();
     }
     private void Update()
     {
-        spawnPosition = new Vector3(muzzle.transform.position.x, muzzle.transform.position.y, muzzle.transform.position.z);
-        spawnTimer += Time.deltaTime;
-        if (Input.GetButton("Jump"))
+        if (GM.gameStatus == GameManager.GameStatus.gameRunning)
         {
-            if (spawnTimer >= spawnRate && numColpi>0)
+            spawnPosition = new Vector3(muzzle.transform.position.x, muzzle.transform.position.y, muzzle.transform.position.z);
+            spawnTimer += Time.deltaTime;
+            if (Input.GetButton("Jump"))
             {
-                Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
-                numColpi--;
+                if (spawnTimer >= spawnRate && numColpi > 0)
+                {
+                    Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
+                    numColpi--;
+                    spawnTimer = 0;
+                }
+                else if (numColpi <= 0)
+                {
+                    StartCoroutine(maxColpi());
+                }
+            }
+            else if (Input.GetButtonDown("Jump"))
+            {
+                if (spawnTimer >= spawnRate && numColpi > 0)
+                {
+                    StartCoroutine(timerColpi());
+                    Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
+                    spawnTimer = 0;
+                }
+                else
+                {
+                    StartCoroutine(maxColpi());
+                }
+            }
+            else if (spawnTimer >= spawnRate && pM.gemCount > 0 && Input.GetKeyDown(KeyCode.E))
+            {
+                Instantiate(bombToSpawn, spawnPosition, Quaternion.identity);
                 spawnTimer = 0;
             }
-            else if (numColpi <=0)
-            {
-                StartCoroutine(maxColpi());
-            }
         }
-        else if (Input.GetButtonDown("Jump"))
-        {
-            if(spawnTimer >= spawnRate && numColpi > 0)
-            {
-                StartCoroutine(timerColpi());
-                Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
-                spawnTimer = 0;
-            }
-            else
-            {
-                StartCoroutine(maxColpi());
-            }
-        }
-        else if(spawnTimer >= spawnRate && pM.gemCount > 0 && Input.GetKeyDown(KeyCode.E) )
-        {
-            Instantiate(bombToSpawn, spawnPosition, Quaternion.identity);
-            spawnTimer = 0;
-        }
-
     }
 
     IEnumerator maxColpi()
@@ -67,6 +70,6 @@ public class Muzzle : MonoBehaviour
         yield return new WaitForSeconds(4);
         numColpi = 0;
     }
-    
+
 }
 

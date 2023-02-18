@@ -11,13 +11,18 @@ public class BossManager : MonoBehaviour
     public int bombDamage = 30;
     [SerializeField] float spawnRate, otherSpawnRate, rareSpawnRate, r2SpawnRate;
     float spawnTimer, otherSpawnTimer, rareSpawnTimer, r2SpawnTimer;
+    GameManager GM;
     private void Start()
     {
+        GM = FindObjectOfType<GameManager>();
         health = maxHP;
     }
     private void Update()
     {
-        EnemyBullet();
+        if (GM.gameStatus == GameManager.GameStatus.gameRunning)
+        {
+            EnemyBullet();
+        }
     }
     private void OnCollisionEnter(Collision coll)
     {

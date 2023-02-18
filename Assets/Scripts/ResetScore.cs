@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ResetScore : MonoBehaviour
 {
-    void Awake()
-    {
-        FindObjectOfType<Score>().UpdateScore(0);
-    }
+    //void Awake()
+    //{
+    //    FindObjectOfType<Score>().UpdateScore(0);
+    //}
 
 }

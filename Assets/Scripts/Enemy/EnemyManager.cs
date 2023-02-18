@@ -17,16 +17,21 @@ public class EnemyManager : MonoBehaviour
     int chance;
     float spawnTimer;
     PlayerMovement pM;
+    GameManager GM;
     private void Start()
     {
+        GM = FindObjectOfType<GameManager>();
         pM = FindObjectOfType<PlayerMovement>();
         health = maxHP;
     }
 
     void Update()
     {
-        transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
-        EnemyBullet();
+        if (GM.gameStatus == GameManager.GameStatus.gameRunning)
+        {
+            transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
+            EnemyBullet();
+        }
     }
     private void OnCollisionEnter(Collision coll)
     {
@@ -80,7 +85,7 @@ public class EnemyManager : MonoBehaviour
                 Instantiate(EnemyWeapon, new Vector3(transform.position.x - 5f, transform.position.y, transform.position.z), Quaternion.identity);
                 spawnTimer = 0;
             }
-            
+
         }
     }
 }

@@ -10,6 +10,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int spawnRate;
 
     PlayerMovement pM;
+    GameManager GM;
 
     public int numOfEnemies;
     float spawnTimer;
@@ -17,32 +18,36 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        GM = FindObjectOfType<GameManager>();
         pM = FindObjectOfType<PlayerMovement>();
         upperLimit = upperSpawnLimit.position.y;
         lowerLimit = lowerSpawnLimit.position.y;
     }
     private void Update()
     {
-        spawnTimer += Time.deltaTime;
-        if (spawnTimer >= spawnRate)
+        if (GM.gameStatus == GameManager.GameStatus.gameRunning)
         {
-            Vector3 spawnPosition = new Vector3(transform.position.x, Random.Range(upperLimit, lowerLimit), -2);
-            if (pM.levelCount == 0)
+            spawnTimer += Time.deltaTime;
+            if (spawnTimer >= spawnRate)
             {
-                if (numOfEnemies < 10)
+                Vector3 spawnPosition = new Vector3(transform.position.x, Random.Range(upperLimit, lowerLimit), -2);
+                if (pM.levelCount == 0)
                 {
-                    GameObject enemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
-                    spawnTimer = 0;
-                    numOfEnemies++;
+                    if (numOfEnemies < 10)
+                    {
+                        GameObject enemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
+                        spawnTimer = 0;
+                        numOfEnemies++;
+                    }
                 }
-            }
-            if (pM.levelCount == 1)
-            {
-                if (numOfEnemies < 3)
+                if (pM.levelCount == 1)
                 {
-                    GameObject enemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
-                    spawnTimer = 0;
-                    numOfEnemies++;
+                    if (numOfEnemies < 3)
+                    {
+                        GameObject enemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
+                        spawnTimer = 0;
+                        numOfEnemies++;
+                    }
                 }
             }
         }

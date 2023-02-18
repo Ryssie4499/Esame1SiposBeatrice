@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public int health;                                          //punti vita attuali
     public int trapDamage = 10;                                 //danno inflitto al player dalle trappole sganciate dall'enemy
 
+
     [Header("Collectible")]
     public int gemCount;                                        //quantità di collectible raccolti
     public int XPCount;
@@ -27,8 +28,14 @@ public class PlayerMovement : MonoBehaviour
     Vector2 pOldPos;                                            //posizioni vecchie per i boundaries
     Vector2 pStartPos;
 
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    [HideInInspector] public int score;
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
     CameraMove cM;
     Score sc;
+    GameManager GM;
+    UIManager UM;
     private void Start()
     {
         //setto la vita del player iniziale uguale al massimo e la posizione iniziale alla posizione attuale del player
@@ -38,11 +45,17 @@ public class PlayerMovement : MonoBehaviour
 
         sc = FindObjectOfType<Score>();
         cM = FindObjectOfType<CameraMove>();
+        GM = FindObjectOfType<GameManager>();
+        UM = FindObjectOfType<UIManager>();
+        GameManager.Record += ScoreRecord;
     }
     private void Update()
     {
-        MovePlayer();
-        sc.UpdateScore(sc.CurrentScore);
+        if (GM.gameStatus == GameManager.GameStatus.gameRunning)
+        {
+            MovePlayer();
+        }
+        //sc.UpdateScore(sc.CurrentScore);
     }
 
     private void MovePlayer()
@@ -86,30 +99,26 @@ public class PlayerMovement : MonoBehaviour
             other.gameObject.SetActive(false);
         }
         if (other.CompareTag("XP"))
-        {
-            sc.CurrentScore += 20;  
+        {//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //sc.CurrentScore += 20;  
+            //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             XPCount += 20;
+            ScoreRecord();
             other.gameObject.SetActive(false);
-        }
-        if (other.CompareTag("EndLevel"))
-        {
-            if (levelCount == 0)
-            {
-                SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
-            }
-            if (levelCount == 1)
-            {
-                SceneManager.LoadScene("Level_3", LoadSceneMode.Single);
-            }
-            
         }
         if (other.CompareTag("StartLevel"))
         {
+            GM.gameStatus = GameManager.GameStatus.gameRunning;
             levelCount++;
         }
     }
     private void OnTriggerExit(Collider other)
     {
+        if (other.CompareTag("EndLevel"))
+        {
+            GM.gameStatus = GameManager.GameStatus.gameEnd;
+            
+        }
         if (other.CompareTag("StopCamera"))
         {
             cM.cameraStop = true;
@@ -172,5 +181,10 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    public void ScoreRecord()
+    {
+        score +=20;
+    }
+    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 }

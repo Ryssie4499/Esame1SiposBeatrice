@@ -14,6 +14,7 @@ public class BackgroundScroller : MonoBehaviour
     private int leftIndex, rightIndex;                                          //indici che fanno riferimento alle tiles
     private float lastCameraX;                                                  //posizione precedente della camera sull'asse x
 
+    GameManager GM;
     void Start()
     {
         //assegno la posizione della nostra main camera al cameraTransform e al lastCameraX
@@ -30,19 +31,25 @@ public class BackgroundScroller : MonoBehaviour
         //assegno i valori iniziali degli indici
         leftIndex = 0;
         rightIndex = tiles.Length - 1;
+
+        GM = FindObjectOfType<GameManager>();
     }
 
     void Update()
     {
-        //il movimento della camera è dato dalla velocità data da inspector, la distanza tra la precedente coordinata x e quella successiva e dal vettore (1,0,0)
-        float deltaX = cameraTransform.position.x - lastCameraX;
-        transform.position += Vector3.right * (deltaX * scrollSpeed);
-        lastCameraX = cameraTransform.position.x;
-
-        //se la posizione della camera è all'interno della viewzone, la tile a sinistra si sposta a destra
-        if (cameraTransform.position.x > (tiles[rightIndex].transform.position.x - viewZone))
+        if (GM.gameStatus == GameManager.GameStatus.gameRunning)
         {
-            SwitchRight();
+
+            //il movimento della camera è dato dalla velocità data da inspector, la distanza tra la precedente coordinata x e quella successiva e dal vettore (1,0,0)
+            float deltaX = cameraTransform.position.x - lastCameraX;
+            transform.position += Vector3.right * (deltaX * scrollSpeed);
+            lastCameraX = cameraTransform.position.x;
+
+            //se la posizione della camera è all'interno della viewzone, la tile a sinistra si sposta a destra
+            if (cameraTransform.position.x > (tiles[rightIndex].transform.position.x - viewZone))
+            {
+                SwitchRight();
+            }
         }
     }
     private void SwitchRight()
