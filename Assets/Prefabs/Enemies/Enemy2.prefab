@@ -105,6 +105,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6030416553451157482, guid: bb72b098c1913804ab55430494e149d1, type: 3}
+    - {fileID: -886252348273914590, guid: bb72b098c1913804ab55430494e149d1, type: 3}
+    - {fileID: 1228221441761123319, guid: bb72b098c1913804ab55430494e149d1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bb72b098c1913804ab55430494e149d1, type: 3}
 --- !u!1 &8072751461679732053 stripped
 GameObject:
@@ -136,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d02611adf434c945a96fbc872d62fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BombGem: {fileID: 5732092566269569870, guid: a707de7c8c7bae347bf63707c26c16a8, type: 3}
+  BombGem: {fileID: 6788954869440503664, guid: 44c6655555a222344b9e605716288540, type: 3}
   XP: {fileID: 4570880857295252099, guid: 9cc6da5e62bd11849a3f49cd86b01340, type: 3}
   EnemyWeapon: {fileID: 4745489776690239638, guid: c9e00656f22a435468c167e4f93a6f35, type: 3}
   maxHP: 100

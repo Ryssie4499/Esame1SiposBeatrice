@@ -12,12 +12,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject tutorialShoot;
     [SerializeField] public GameObject tutorialBomb;
     [SerializeField] public GameObject startCanvas;
+    [SerializeField] public GameObject levelEndCanvas;
     [SerializeField] public GameObject endCanvas;
 
     [SerializeField] public TextMeshProUGUI gemsText;
     [SerializeField] public TextMeshProUGUI XPText;
     [SerializeField] public TextMeshProUGUI totText;
     [SerializeField] public TextMeshProUGUI pointsText;
+    [SerializeField] public TextMeshProUGUI TotPointsText;
 
     [SerializeField] Image ShootingBar;
     [SerializeField] Image HPBar, BossHPBar;
@@ -56,10 +58,14 @@ public class UIManager : MonoBehaviour
             HPBar.fillAmount = (float)pM.health / pM.maxHP;
             BossHPBar.fillAmount = (float)bM.health / bM.maxHP;
         }
-        if (GM.gameStatus == GameManager.GameStatus.gameEnd)
+        if (GM.gameStatus == GameManager.GameStatus.gameLevelEnd)
         {
-            endCanvas.SetActive(true);
+            levelEndCanvas.SetActive(true);
             pointsText.text = pM.score.ToString("000");
+        }
+        if(GM.gameStatus == GameManager.GameStatus.gameEnd)
+        {
+            TotPointsText.text = pM.score.ToString("0000");
         }
     }
     public void MoveTutorial()
@@ -104,12 +110,12 @@ public class UIManager : MonoBehaviour
 
     public void NextLevel()
     {
-        endCanvas.SetActive(false);
+        levelEndCanvas.SetActive(false);
         GM.gameStatus = GameManager.GameStatus.gameRunning;
         Debug.Log("Funziono!");
         if (pM.levelCount == 0)
         {
-            endCanvas.SetActive(false);
+            levelEndCanvas.SetActive(false);
             Debug.Log("Funziono X2!");
             SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
             //GM.EndLevel();
@@ -118,7 +124,7 @@ public class UIManager : MonoBehaviour
         if (pM.levelCount == 1)
         {
 
-            endCanvas.SetActive(false);
+            levelEndCanvas.SetActive(false);
             Debug.Log("Funziono X3!");
             SceneManager.LoadScene("Level_3", LoadSceneMode.Single);
             //GM.EndLevel();

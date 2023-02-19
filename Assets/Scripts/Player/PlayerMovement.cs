@@ -116,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("EndLevel"))
         {
-            GM.gameStatus = GameManager.GameStatus.gameEnd;
+            GM.gameStatus = GameManager.GameStatus.gameLevelEnd;
             
         }
         if (other.CompareTag("StopCamera"))

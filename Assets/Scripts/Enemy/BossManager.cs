@@ -12,9 +12,11 @@ public class BossManager : MonoBehaviour
     [SerializeField] float spawnRate, otherSpawnRate, rareSpawnRate, r2SpawnRate;
     float spawnTimer, otherSpawnTimer, rareSpawnTimer, r2SpawnTimer;
     GameManager GM;
+    UIManager UM;
     private void Start()
     {
         GM = FindObjectOfType<GameManager>();
+        UM = FindObjectOfType<UIManager>();
         health = maxHP;
     }
     private void Update()
@@ -49,7 +51,9 @@ public class BossManager : MonoBehaviour
     {
         if (health == 0)
         {
+            GM.gameStatus = GameManager.GameStatus.gameEnd;
             Destroy(gameObject);
+            UM.endCanvas.SetActive(true);
         }
     }
     public void EnemyBullet()

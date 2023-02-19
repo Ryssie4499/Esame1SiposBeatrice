@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     {
         gamePaused,
         gameRunning,
+        gameLevelEnd,
         gameEnd,
         gameStart
     }
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
     }
     public void EndLevel()
     {
-        gameStatus = GameStatus.gameEnd;
+        gameStatus = GameStatus.gameLevelEnd;
         Record?.Invoke();
     }
     public void Exit()
