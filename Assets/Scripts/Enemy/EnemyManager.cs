@@ -70,7 +70,7 @@ public class EnemyManager : MonoBehaviour
     }
     public void EnemyDefeat()
     {
-        if (health == 0)
+        if (health <= 0)
         {
             Destroy(gameObject);
         }

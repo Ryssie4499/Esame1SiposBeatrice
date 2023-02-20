@@ -55,6 +55,7 @@ public class Muzzle : MonoBehaviour
             else if (spawnTimer >= spawnRate && pM.gemCount > 0 && Input.GetKeyDown(KeyCode.E))
             {
                 Instantiate(bombToSpawn, spawnPosition, Quaternion.identity);
+                pM.gemCount--;
                 spawnTimer = 0;
             }
         }

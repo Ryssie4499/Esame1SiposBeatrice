@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject startCanvas;
     [SerializeField] public GameObject levelEndCanvas;
     [SerializeField] public GameObject endCanvas;
+    [SerializeField] public GameObject pauseCanvas;
 
     [SerializeField] public TextMeshProUGUI gemsText;
     [SerializeField] public TextMeshProUGUI XPText;
@@ -58,6 +59,7 @@ public class UIManager : MonoBehaviour
             HPBar.fillAmount = (float)pM.health / pM.maxHP;
             BossHPBar.fillAmount = (float)bM.health / bM.maxHP;
         }
+
         if (GM.gameStatus == GameManager.GameStatus.gameLevelEnd)
         {
             levelEndCanvas.SetActive(true);
@@ -123,14 +125,25 @@ public class UIManager : MonoBehaviour
         }
         if (pM.levelCount == 1)
         {
-
             levelEndCanvas.SetActive(false);
             Debug.Log("Funziono X3!");
             SceneManager.LoadScene("Level_3", LoadSceneMode.Single);
             //GM.EndLevel();
             pM.ScoreRecord();
-            
         }
-        
+    }
+
+    public void Continue()
+    {
+        GM.gameStatus = GameManager.GameStatus.gameRunning;
+        pauseCanvas.SetActive(false);
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene("Level_1", LoadSceneMode.Single);
+        pM.gemCount = 0;
+        pM.health = pM.maxHP;
+        GM.gameStatus = GameManager.GameStatus.gameRunning;
+        pauseCanvas.SetActive(false);
     }
 }
