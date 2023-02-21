@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public delegate void Scoring();
     public static event Scoring Record;
-    PlayerMovement pM;
+    public int _score;
     UIManager UM;
     private void Awake()
     {
@@ -22,8 +22,6 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        //gameStatus = GameStatus.gameStart;
-        pM = FindObjectOfType<PlayerMovement>();
         UM = FindObjectOfType<UIManager>();
     }
     public enum GameStatus
@@ -31,6 +29,7 @@ public class GameManager : MonoBehaviour
         gamePaused,
         gameRunning,
         gameLevelEnd,
+        gameOver,
         gameEnd,
         gameStart
     }
@@ -42,16 +41,17 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown("escape") && gameStatus == GameStatus.gameRunning)
         {
-            Debug.Log("Pausaaaa");
             UM.pauseCanvas.SetActive(true);
             gameStatus = GameStatus.gamePaused;
         }
         else if (Input.GetKeyDown("escape") && gameStatus == GameStatus.gamePaused)
             UM.Continue();
+        if(gameStatus == GameStatus.gameOver)
+        {
+            UM.startCanvas.SetActive(false);
+            UM.defeatCanvas.SetActive(true);
+        }
     }
-
-    
-        
 
     public void EndLevel()
     {
@@ -62,5 +62,5 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
-   
+    
 }

@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] public GameObject levelEndCanvas;
     [SerializeField] public GameObject endCanvas;
     [SerializeField] public GameObject pauseCanvas;
+    [SerializeField] public GameObject defeatCanvas;
 
     [SerializeField] public TextMeshProUGUI gemsText;
     [SerializeField] public TextMeshProUGUI XPText;
@@ -26,9 +27,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Image HPBar, BossHPBar;
 
     [HideInInspector] public int pressNum, numGems;
-    [HideInInspector] public int score;
 
-    Score sc;
     BossManager bM;
     PlayerMovement pM;
     Muzzle m;
@@ -36,7 +35,6 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        sc = FindObjectOfType<Score>();
         bM = FindObjectOfType<BossManager>();
         pM = FindObjectOfType<PlayerMovement>();
         m = FindObjectOfType<Muzzle>();
@@ -49,12 +47,11 @@ public class UIManager : MonoBehaviour
             MoveTutorial();
             ShootingTutorial();
             BombTutorial();
+
             XPText.text = pM.XPCount.ToString("000");
-            //score = sc.CurrentScore;
-            //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            totText.text = pM.score.ToString("000");
-            //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            totText.text = GM._score.ToString("000");
             gemsText.text = pM.gemCount.ToString();
+
             ShootingBar.fillAmount = m.numColpi / m.numMaxColpi;
             HPBar.fillAmount = (float)pM.health / pM.maxHP;
             BossHPBar.fillAmount = (float)bM.health / bM.maxHP;
@@ -114,21 +111,17 @@ public class UIManager : MonoBehaviour
     {
         levelEndCanvas.SetActive(false);
         GM.gameStatus = GameManager.GameStatus.gameRunning;
-        Debug.Log("Funziono!");
+        
         if (pM.levelCount == 0)
         {
             levelEndCanvas.SetActive(false);
-            Debug.Log("Funziono X2!");
             SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
-            //GM.EndLevel();
             pM.ScoreRecord();
         }
         if (pM.levelCount == 1)
         {
             levelEndCanvas.SetActive(false);
-            Debug.Log("Funziono X3!");
             SceneManager.LoadScene("Level_3", LoadSceneMode.Single);
-            //GM.EndLevel();
             pM.ScoreRecord();
         }
     }
@@ -145,5 +138,11 @@ public class UIManager : MonoBehaviour
         pM.health = pM.maxHP;
         GM.gameStatus = GameManager.GameStatus.gameRunning;
         pauseCanvas.SetActive(false);
+    }
+    public void Retry()
+    {
+        Debug.Log("Riprovo");
+        GM.gameStatus = GameManager.GameStatus.gameRunning;
+        defeatCanvas.SetActive(false);
     }
 }

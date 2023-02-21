@@ -28,12 +28,10 @@ public class PlayerMovement : MonoBehaviour
     Vector2 pOldPos;                                            //posizioni vecchie per i boundaries
     Vector2 pStartPos;
 
-    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     [HideInInspector] public int score;
-    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    
+   
+
     CameraMove cM;
-    Score sc;
     GameManager GM;
     UIManager UM;
     private void Start()
@@ -43,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
         health = maxHP;
         pStartPos = player.transform.position;
 
-        sc = FindObjectOfType<Score>();
         cM = FindObjectOfType<CameraMove>();
         GM = FindObjectOfType<GameManager>();
         UM = FindObjectOfType<UIManager>();
@@ -55,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
         {
             MovePlayer();
         }
-        //sc.UpdateScore(sc.CurrentScore);
     }
 
     private void MovePlayer()
@@ -99,10 +95,9 @@ public class PlayerMovement : MonoBehaviour
             other.gameObject.SetActive(false);
         }
         if (other.CompareTag("XP"))
-        {//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            //sc.CurrentScore += 20;  
-            //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        {
             XPCount += 20;
+            score = GM._score + 20;
             ScoreRecord();
             other.gameObject.SetActive(false);
         }
@@ -110,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
         {
             GM.gameStatus = GameManager.GameStatus.gameRunning;
             levelCount++;
+            Destroy(other);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -117,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("EndLevel"))
         {
             GM.gameStatus = GameManager.GameStatus.gameLevelEnd;
-            
+
         }
         if (other.CompareTag("StopCamera"))
         {
@@ -159,32 +155,31 @@ public class PlayerMovement : MonoBehaviour
 
     public void Death()
     {
-        if (health == 0)
+        GM.gameStatus = GameManager.GameStatus.gameOver;
+        if (levelCount == 0)
         {
-            if (levelCount == 0)
-            {
-                SceneManager.LoadScene("Level_1", LoadSceneMode.Single);
-                gemCount = 0;
-                health = maxHP;
-            }
-            else if (levelCount == 1)
-            {
-                SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
-                gemCount = 0;
-                health = maxHP;
-            }
-            else if (levelCount == 2)
-            {
-                SceneManager.LoadScene("Level_3", LoadSceneMode.Single);
-                gemCount = 0;
-                health = maxHP;
-            }
+            SceneManager.LoadScene("Level_1", LoadSceneMode.Single);
+            gemCount = 0;
+            health = maxHP;
+        }
+        else if (levelCount == 1)
+        {
+            SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
+            gemCount = 0;
+            health = maxHP;
+        }
+        else if (levelCount >= 2)
+        {
+            SceneManager.LoadScene("Level_3", LoadSceneMode.Single);
+            gemCount = 0;
+            health = maxHP;
         }
     }
-    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    
     public void ScoreRecord()
     {
-        score +=20;
+        GM._score = score;
     }
-    //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 }
+
