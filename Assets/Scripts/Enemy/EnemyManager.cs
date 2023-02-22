@@ -20,47 +20,42 @@ public class EnemyManager : MonoBehaviour
     PlayerMovement pM;
     GameManager GM;
     EnemySpawner eS;
+    Rigidbody rb;
     private void Start()
     {
         GM = FindObjectOfType<GameManager>();
         pM = FindObjectOfType<PlayerMovement>();
         eS = FindObjectOfType<EnemySpawner>();
+        rb = GetComponent<Rigidbody>();
         health = maxHP;
     }
 
     void Update()
     {
-        if (gameObject.transform.position.y <= 6 && gameObject.transform.position.y >= 0)       //se è compreso tra 0 e 5 va giù
+        if (gameObject.transform.position.y <= 7 && gameObject.transform.position.y >= 0)
         {
             up = false;
             down = true;
             if(gameObject.transform.position.y >0 && gameObject.transform.position.y < 0.01f)
             {
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, -2f, gameObject.transform.position.z);
+                rb.AddForce(Vector3.down, ForceMode.Impulse);
                 up = false;
                 down = true;
             }
             
             
         }
-        else if (gameObject.transform.position.y >= -6 && gameObject.transform.position.y < 0)  //se è compreso tra 0 e -5 va su
+        else if (gameObject.transform.position.y >= -7 && gameObject.transform.position.y < 0)
         {
             up = true;
             down = false;
             if (gameObject.transform.position.y < 0 && gameObject.transform.position.y > -0.01f)
             {
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, 2f, gameObject.transform.position.z);
+                rb.AddForce(Vector3.up, ForceMode.Impulse);
                 up = true;
                 down = false;
             }
             
-            //if (gameObject.transform.position.y == 0)
-            //{
-            //    up = false;
-            //    down = true;
-            //}
-            //Debug.Log("Up: " + up);
-            //Debug.Log("Down: " + down);
         }
         
        
