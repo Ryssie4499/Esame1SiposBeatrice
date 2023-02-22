@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Collectible")]
     public int gemCount;                                        //quantità di collectible raccolti
     public int XPCount;
-    public int levelCount;
+    
 
     [SerializeField] GameObject BossHealthBar;
 
@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 pStartPos;
 
     [HideInInspector] public int score;
-   
+    public bool l2, l3;
 
     CameraMove cM;
     GameManager GM;
@@ -37,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         //setto la vita del player iniziale uguale al massimo e la posizione iniziale alla posizione attuale del player
+        l2 = false;
+        l3 = false;
 
         health = maxHP;
         pStartPos = player.transform.position;
@@ -101,10 +103,16 @@ public class PlayerMovement : MonoBehaviour
             ScoreRecord();
             other.gameObject.SetActive(false);
         }
-        if (other.CompareTag("StartLevel"))
+        if (other.CompareTag("StartLevel_2"))
         {
             GM.gameStatus = GameManager.GameStatus.gameRunning;
-            levelCount++;
+            l2 = true;
+            Destroy(other);
+        }
+        if (other.CompareTag("StartLevel_3"))
+        {
+            GM.gameStatus = GameManager.GameStatus.gameRunning;
+            l3 = true;
             Destroy(other);
         }
     }
@@ -113,7 +121,6 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("EndLevel"))
         {
             GM.gameStatus = GameManager.GameStatus.gameLevelEnd;
-
         }
         if (other.CompareTag("StopCamera"))
         {
@@ -156,19 +163,19 @@ public class PlayerMovement : MonoBehaviour
     public void Death()
     {
         GM.gameStatus = GameManager.GameStatus.gameOver;
-        if (levelCount == 0)
+        if (l2 == false && l3 == false)
         {
             SceneManager.LoadScene("Level_1", LoadSceneMode.Single);
             gemCount = 0;
             health = maxHP;
         }
-        else if (levelCount == 1)
+        else if (l2 == true && l3 == false)
         {
             SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
             gemCount = 0;
             health = maxHP;
         }
-        else if (levelCount >= 2)
+        else if (l2= true && l3==true)
         {
             SceneManager.LoadScene("Level_3", LoadSceneMode.Single);
             gemCount = 0;

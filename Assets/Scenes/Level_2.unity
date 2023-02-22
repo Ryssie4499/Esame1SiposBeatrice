@@ -2888,6 +2888,7 @@ MonoBehaviour:
   lowerSpawnLimit: {fileID: 1276932139}
   spawnRate: 8
   numOfEnemies: 0
+  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &443184091
 GameObject:
   m_ObjectHideFlags: 0
@@ -4725,7 +4726,7 @@ GameObject:
   - component: {fileID: 870780435}
   m_Layer: 0
   m_Name: STARTLEVEL
-  m_TagString: StartLevel
+  m_TagString: StartLevel_2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9237,6 +9238,7 @@ MonoBehaviour:
   lowerSpawnLimit: {fileID: 1276932139}
   spawnRate: 8
   numOfEnemies: 0
+  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1847114888
 Transform:
   m_ObjectHideFlags: 0

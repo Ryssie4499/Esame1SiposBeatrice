@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public delegate void Scoring();
     public static event Scoring Record;
     public int _score;
+    
     UIManager UM;
     private void Awake()
     {
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour
             UM.defeatCanvas.SetActive(true);
         }
     }
-
+   
     public void EndLevel()
     {
         gameStatus = GameStatus.gameLevelEnd;

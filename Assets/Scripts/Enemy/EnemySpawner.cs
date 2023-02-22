@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject enemyToSpawn;
     [SerializeField] Transform upperSpawnLimit;
     [SerializeField] Transform lowerSpawnLimit;
-    [SerializeField] int spawnRate;
+    [SerializeField] float spawnRate;
 
     PlayerMovement pM;
     GameManager GM;
@@ -15,6 +15,7 @@ public class EnemySpawner : MonoBehaviour
     public int numOfEnemies;
     float spawnTimer;
     float upperLimit, lowerLimit;
+    public Vector3 spawnPosition;
 
     private void Start()
     {
@@ -30,8 +31,8 @@ public class EnemySpawner : MonoBehaviour
             spawnTimer += Time.deltaTime;
             if (spawnTimer >= spawnRate)
             {
-                Vector3 spawnPosition = new Vector3(transform.position.x, Random.Range(upperLimit, lowerLimit), -2);
-                if (pM.levelCount == 0)
+                spawnPosition = new Vector3(transform.position.x, Random.Range(upperLimit, lowerLimit), -2);
+                if (pM.l2==false && pM.l3==false)
                 {
                     if (numOfEnemies < 10)
                     {
@@ -40,9 +41,18 @@ public class EnemySpawner : MonoBehaviour
                         numOfEnemies++;
                     }
                 }
-                if (pM.levelCount == 1)
+                if (pM.l2==true && pM.l3==false)
                 {
                     if (numOfEnemies < 3)
+                    {
+                        GameObject enemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
+                        spawnTimer = 0;
+                        numOfEnemies++;
+                    }
+                }
+                if (pM.l3 == true)
+                {
+                    if (numOfEnemies < 15)
                     {
                         GameObject enemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
                         spawnTimer = 0;

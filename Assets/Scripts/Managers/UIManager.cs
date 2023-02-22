@@ -112,13 +112,13 @@ public class UIManager : MonoBehaviour
         levelEndCanvas.SetActive(false);
         GM.gameStatus = GameManager.GameStatus.gameRunning;
         
-        if (pM.levelCount == 0)
+        if (pM.l2==false && pM.l3==false)
         {
             levelEndCanvas.SetActive(false);
             SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
             pM.ScoreRecord();
         }
-        if (pM.levelCount == 1)
+        if (pM.l2==true && pM.l3==false)
         {
             levelEndCanvas.SetActive(false);
             SceneManager.LoadScene("Level_3", LoadSceneMode.Single);

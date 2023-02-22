@@ -12,8 +12,9 @@ TagManager:
   - Bomb
   - XP
   - EndLevel
-  - StartLevel
   - StopCamera
+  - StartLevel_2
+  - StartLevel_3
   layers:
   - Default
   - TransparentFX

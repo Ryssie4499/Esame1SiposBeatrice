@@ -67,7 +67,7 @@ MonoBehaviour:
   movementSpeed: 3
   bulletDamage: 10
   bombDamage: 30
-  spawnRate: 3
+  spawnRate: 0.2
 --- !u!1 &8815408969044106552
 GameObject:
   m_ObjectHideFlags: 0
