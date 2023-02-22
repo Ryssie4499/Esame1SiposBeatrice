@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] float spawnRate;
     int chance;
     float spawnTimer;
-    Vector3 newSpawnPos;
+    bool up, down;
     PlayerMovement pM;
     GameManager GM;
     EnemySpawner eS;
@@ -30,33 +30,58 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
-
-        if (GM.gameStatus == GameManager.GameStatus.gameRunning && pM.l3==false)
+        if (gameObject.transform.position.y <= 6 && gameObject.transform.position.y >= 0)       //se è compreso tra 0 e 5 va giù
+        {
+            up = false;
+            down = true;
+            if(gameObject.transform.position.y >0 && gameObject.transform.position.y < 0.01f)
+            {
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x, -2f, gameObject.transform.position.z);
+                up = false;
+                down = true;
+            }
+            
+            
+        }
+        else if (gameObject.transform.position.y >= -6 && gameObject.transform.position.y < 0)  //se è compreso tra 0 e -5 va su
+        {
+            up = true;
+            down = false;
+            if (gameObject.transform.position.y < 0 && gameObject.transform.position.y > -0.01f)
+            {
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x, 2f, gameObject.transform.position.z);
+                up = true;
+                down = false;
+            }
+            
+            //if (gameObject.transform.position.y == 0)
+            //{
+            //    up = false;
+            //    down = true;
+            //}
+            //Debug.Log("Up: " + up);
+            //Debug.Log("Down: " + down);
+        }
+        
+       
+        if (GM.gameStatus == GameManager.GameStatus.gameRunning && pM.l3 == false)
         {
             transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
             EnemyBullet();
         }
-        else if (GM.gameStatus == GameManager.GameStatus.gameRunning && pM.l3==true)
+        else if (GM.gameStatus == GameManager.GameStatus.gameRunning && pM.l3 == true)
         {
-            Debug.Log("Ci provooo!!!");
-            newSpawnPos = eS.spawnPosition;
-            if(gameObject.transform.position.y >= 6f || gameObject.transform.position.y <= -6f)
+            if (down == true && up == false)
             {
-                newSpawnPos = gameObject.transform.position;
-                Debug.Log("Cambio!");
-            }
-            if (newSpawnPos.y < 0)
-            {
-                Debug.Log("Vado su");
-                transform.Translate(new Vector3(-1, 1, 0) * movementSpeed * Time.deltaTime);
-                EnemyBullet();
-            }
-            else if (newSpawnPos.y >= 0)
-            {
-                Debug.Log("Vado giù");
                 transform.Translate(new Vector3(-1, -1, 0) * movementSpeed * Time.deltaTime);
                 EnemyBullet();
             }
+            else if (up == true && down == false)
+            {
+                transform.Translate(new Vector3(-1, 1, 0) * movementSpeed * Time.deltaTime);
+                EnemyBullet();
+            }
+
         }
     }
     private void OnCollisionEnter(Collision coll)
@@ -92,7 +117,6 @@ public class EnemyManager : MonoBehaviour
                 EnemyDefeat();
             }
         }
-
     }
     public void EnemyDefeat()
     {
@@ -103,7 +127,7 @@ public class EnemyManager : MonoBehaviour
     }
     public void EnemyBullet()
     {
-        if (pM.l2==true && pM.l3==false)
+        if (pM.l2 == true && pM.l3 == false)
         {
             spawnTimer += Time.deltaTime;
             if (spawnTimer >= spawnRate)
@@ -122,4 +146,5 @@ public class EnemyManager : MonoBehaviour
             }
         }
     }
+
 }

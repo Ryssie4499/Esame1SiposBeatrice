@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
     public int numOfEnemies;
     float spawnTimer;
     float upperLimit, lowerLimit;
-    public Vector3 spawnPosition;
+    [HideInInspector]public Vector3 spawnPosition;
 
     private void Start()
     {
@@ -52,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
                 }
                 if (pM.l3 == true)
                 {
-                    if (numOfEnemies < 15)
+                    if (numOfEnemies < 2)
                     {
                         GameObject enemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
                         spawnTimer = 0;
