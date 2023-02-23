@@ -59,9 +59,5 @@ public class GameManager : MonoBehaviour
         gameStatus = GameStatus.gameLevelEnd;
         Record?.Invoke();
     }
-    public void Exit()
-    {
-        Application.Quit();
-    }
-    
+
 }

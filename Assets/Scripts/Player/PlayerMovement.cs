@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float playerSpeed = 15f;                   //velocità del player editabile
 
     [Header("Camera")]
-    [SerializeField] float boundaryHeight = 5f;                 //altezza contorni editabile
+    [SerializeField] float boundaryHeight = 6f;                 //altezza contorni editabile
 
     [Header("Stats")]
     public int maxHP = 100;                                     //punti vita massimi
@@ -103,6 +103,14 @@ public class PlayerMovement : MonoBehaviour
             ScoreRecord();
             other.gameObject.SetActive(false);
         }
+        if (other.CompareTag("HP"))
+        {
+            if (health <= (maxHP - 20))
+            {
+                health += 20;
+                Destroy(other.gameObject);
+            }
+        }
         if (other.CompareTag("StartLevel_2"))
         {
             GM.gameStatus = GameManager.GameStatus.gameRunning;
@@ -115,6 +123,10 @@ public class PlayerMovement : MonoBehaviour
             l3 = true;
             Destroy(other);
         }
+        if (other.CompareTag("StopCamera"))
+        {
+            BossHealthBar.SetActive(true);
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -125,7 +137,6 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("StopCamera"))
         {
             cM.cameraStop = true;
-            BossHealthBar.SetActive(true);
         }
     }
 

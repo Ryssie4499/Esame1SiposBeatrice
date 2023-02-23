@@ -136,7 +136,7 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("Level_1", LoadSceneMode.Single);
         pM.gemCount = 0;
         pM.health = pM.maxHP;
-        GM.gameStatus = GameManager.GameStatus.gameRunning;
+        GM.gameStatus = GameManager.GameStatus.gameStart;
         pauseCanvas.SetActive(false);
     }
     public void Retry()
@@ -144,5 +144,9 @@ public class UIManager : MonoBehaviour
         Debug.Log("Riprovo");
         GM.gameStatus = GameManager.GameStatus.gameRunning;
         defeatCanvas.SetActive(false);
+    }
+    public void Exit()
+    {
+        Application.Quit();
     }
 }

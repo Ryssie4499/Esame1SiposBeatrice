@@ -15,6 +15,7 @@ TagManager:
   - StopCamera
   - StartLevel_2
   - StartLevel_3
+  - HP
   layers:
   - Default
   - TransparentFX

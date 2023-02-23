@@ -52,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
                 }
                 if (pM.l3 == true)
                 {
-                    if (numOfEnemies < 8)
+                    if (numOfEnemies < 4)
                     {
                         GameObject enemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
                         spawnTimer = 0;

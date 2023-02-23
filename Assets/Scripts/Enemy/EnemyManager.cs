@@ -32,33 +32,7 @@ public class EnemyManager : MonoBehaviour
 
     void Update()
     {
-        if (gameObject.transform.position.y <= 7 && gameObject.transform.position.y >= 0)
-        {
-            up = false;
-            down = true;
-            if(gameObject.transform.position.y >0 && gameObject.transform.position.y < 0.01f)
-            {
-                rb.AddForce(Vector3.down, ForceMode.Impulse);
-                up = false;
-                down = true;
-            }
-            
-            
-        }
-        else if (gameObject.transform.position.y >= -7 && gameObject.transform.position.y < 0)
-        {
-            up = true;
-            down = false;
-            if (gameObject.transform.position.y < 0 && gameObject.transform.position.y > -0.01f)
-            {
-                rb.AddForce(Vector3.up, ForceMode.Impulse);
-                up = true;
-                down = false;
-            }
-            
-        }
-        
-       
+
         if (GM.gameStatus == GameManager.GameStatus.gameRunning && pM.l3 == false)
         {
             transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
@@ -66,6 +40,31 @@ public class EnemyManager : MonoBehaviour
         }
         else if (GM.gameStatus == GameManager.GameStatus.gameRunning && pM.l3 == true)
         {
+            if (gameObject.transform.position.y <= 7 && gameObject.transform.position.y >= 0)
+            {
+                up = false;
+                down = true;
+                if (gameObject.transform.position.y > 0 && gameObject.transform.position.y < 0.01f)
+                {
+                    rb.AddForce(Vector3.down, ForceMode.Impulse);
+                    up = false;
+                    down = true;
+                }
+
+
+            }
+            else if (gameObject.transform.position.y >= -7 && gameObject.transform.position.y < 0)
+            {
+                up = true;
+                down = false;
+                if (gameObject.transform.position.y < 0 && gameObject.transform.position.y > -0.01f)
+                {
+                    rb.AddForce(Vector3.up, ForceMode.Impulse);
+                    up = true;
+                    down = false;
+                }
+
+            }
             if (down == true && up == false)
             {
                 transform.Translate(new Vector3(-1, -1, 0) * movementSpeed * Time.deltaTime);
