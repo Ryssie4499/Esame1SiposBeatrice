@@ -9,6 +9,10 @@ public class Muzzle : MonoBehaviour
     [SerializeField] public GameObject muzzle;
     [SerializeField] float spawnRate;
     [HideInInspector] public Vector3 spawnPosition;
+
+    public AudioSource ShootingSound;
+    public AudioSource BombSound;
+
     public float numMaxColpi = 20;
     public float numColpi;
     float spawnTimer;
@@ -31,6 +35,7 @@ public class Muzzle : MonoBehaviour
                 if (spawnTimer >= spawnRate && numColpi > 0)
                 {
                     Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
+                    ShootingSound.Play();
                     numColpi--;
                     spawnTimer = 0;
                 }
@@ -45,6 +50,7 @@ public class Muzzle : MonoBehaviour
                 {
                     StartCoroutine(timerColpi());
                     Instantiate(bulletToSpawn, spawnPosition, Quaternion.identity);
+                    ShootingSound.Play();
                     spawnTimer = 0;
                 }
                 else
@@ -55,6 +61,7 @@ public class Muzzle : MonoBehaviour
             else if (spawnTimer >= spawnRate && pM.gemCount > 0 && Input.GetKeyDown(KeyCode.E))
             {
                 Instantiate(bombToSpawn, spawnPosition, Quaternion.identity);
+                BombSound.Play();
                 pM.gemCount--;
                 spawnTimer = 0;
             }

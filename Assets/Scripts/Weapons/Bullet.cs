@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
     public int speed;
     public int bulletSpeed;
     GameManager GM;
+
     private void Start()
     {
         GM = FindObjectOfType<GameManager>();

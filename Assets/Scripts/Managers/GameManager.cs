@@ -46,7 +46,9 @@ public class GameManager : MonoBehaviour
             gameStatus = GameStatus.gamePaused;
         }
         else if (Input.GetKeyDown("escape") && gameStatus == GameStatus.gamePaused)
+        {
             UM.Continue();
+        }
         if(gameStatus == GameStatus.gameOver)
         {
             UM.startCanvas.SetActive(false);

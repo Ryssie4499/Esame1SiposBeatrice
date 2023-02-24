@@ -139,6 +139,8 @@ MonoBehaviour:
   movementSpeed: 2
   bulletDamage: 10
   bombDamage: 30
+  spawnRate: 0
+  EnemyDeathSound: {fileID: 0}
 --- !u!65 &3975281368338166945
 BoxCollider:
   m_ObjectHideFlags: 0

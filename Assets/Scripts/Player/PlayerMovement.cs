@@ -31,6 +31,10 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector] public int score;
     public bool l2, l3;
 
+    public AudioSource HealSound;
+    public AudioSource HitSound;
+    public AudioSource Soundtrack;
+
     CameraMove cM;
     GameManager GM;
     UIManager UM;
@@ -53,6 +57,14 @@ public class PlayerMovement : MonoBehaviour
         if (GM.gameStatus == GameManager.GameStatus.gameRunning)
         {
             MovePlayer();
+            //Soundtrack.UnPause();
+            Soundtrack.volume = 0.4f;
+            StartCoroutine(SoundVolume());
+        }
+        if(GM.gameStatus!=GameManager.GameStatus.gameRunning)
+        {
+            Soundtrack.volume = 0.3f;
+            //Soundtrack.Pause();
         }
     }
 
@@ -108,6 +120,7 @@ public class PlayerMovement : MonoBehaviour
             if (health <= (maxHP - 20))
             {
                 health += 20;
+                HealSound.Play();
                 Destroy(other.gameObject);
             }
         }
@@ -146,6 +159,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (coll.collider.CompareTag("EnemyWeapon"))
         {
+            HitSound.Play();
             if (health > 0)
             {
                 health -= trapDamage;                           //se gli HP del player sono > 0 i punti vita diminuiscono del valore dato dal danno della trappola
@@ -158,6 +172,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (coll.collider.CompareTag("Enemy"))
         {
+            HitSound.Play();
             if (health > 0)
             {
                 health -= trapDamage;                           //se gli HP del player sono > 0 i punti vita diminuiscono del valore dato dal danno dell'enemy
@@ -198,6 +213,12 @@ public class PlayerMovement : MonoBehaviour
     public void ScoreRecord()
     {
         GM._score = score;
+    }
+
+    public IEnumerator SoundVolume()
+    {
+        yield return new WaitForSeconds(2);
+        Soundtrack.volume = 0.8f;
     }
 }
 

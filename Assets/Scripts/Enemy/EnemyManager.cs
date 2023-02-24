@@ -17,6 +17,8 @@ public class EnemyManager : MonoBehaviour
     int chance;
     float spawnTimer;
     bool up, down;
+
+
     PlayerMovement pM;
     GameManager GM;
     EnemySpawner eS;
