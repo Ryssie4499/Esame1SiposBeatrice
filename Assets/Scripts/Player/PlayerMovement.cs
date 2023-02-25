@@ -7,64 +7,62 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Player")]
     [SerializeField] GameObject player;
-    [SerializeField] float playerSpeed = 15f;                   //velocità del player editabile
+    [SerializeField] float playerSpeed = 15f;
 
     [Header("Camera")]
     [SerializeField] float boundaryHeight = 6f;                 //altezza contorni editabile
 
     [Header("Stats")]
-    public int maxHP = 100;                                     //punti vita massimi
-    public int health;                                          //punti vita attuali
-    public int trapDamage = 10;                                 //danno inflitto al player dalle trappole sganciate dall'enemy
+    public int maxHP = 100;
+    public int health;
+    public int trapDamage = 10;                                 //danno che le trappole/proiettili sganciati dagli enemy infliggono al player
 
 
     [Header("Collectible")]
-    public int gemCount;                                        //quantità di collectible raccolti
+    public int gemCount;
     public int XPCount;
-    
 
+    [Header("Boss")]
     [SerializeField] GameObject BossHealthBar;
+
+    [Header("SFX")]
+    public AudioSource HealSound;
+    public AudioSource HitSound;
+    public AudioSource Soundtrack;
 
     Vector2 pOldPos;                                            //posizioni vecchie per i boundaries
     Vector2 pStartPos;
 
     [HideInInspector] public int score;
-    public bool l2, l3;
+    [HideInInspector] public bool l2, l3;                       //livello 2 e livello 3 disattivati di default
 
-    public AudioSource HealSound;
-    public AudioSource HitSound;
-    public AudioSource Soundtrack;
-
-    CameraMove cM;
+    //references
     GameManager GM;
-    UIManager UM;
+
     private void Start()
     {
         //setto la vita del player iniziale uguale al massimo e la posizione iniziale alla posizione attuale del player
-        l2 = false;
-        l3 = false;
-
         health = maxHP;
         pStartPos = player.transform.position;
 
-        cM = FindObjectOfType<CameraMove>();
+        //salvo il punteggio totale per i livelli successivi
         GM = FindObjectOfType<GameManager>();
-        UM = FindObjectOfType<UIManager>();
         GameManager.Record += ScoreRecord;
     }
     private void Update()
     {
+        //solo se il gioco è in play, il player può muoversi e il volume iniziale del soundtrack è più basso
         if (GM.gameStatus == GameManager.GameStatus.gameRunning)
         {
             MovePlayer();
-            //Soundtrack.UnPause();
             Soundtrack.volume = 0.4f;
             StartCoroutine(SoundVolume());
         }
-        if(GM.gameStatus!=GameManager.GameStatus.gameRunning)
+
+        //quando il gioco non è in play (pausa, fine livello, fine gioco o sconfitta) il volume del soundtrack è quasi impercettibile
+        if (GM.gameStatus != GameManager.GameStatus.gameRunning)
         {
             Soundtrack.volume = 0.3f;
-            //Soundtrack.Pause();
         }
     }
 
@@ -93,63 +91,66 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //resetto la posizione del player a quella iniziale
-
     public void ResetPlayerPositions()
     {
         player.transform.position = pStartPos;
     }
 
-    //se il player entra nel trigger della gemma droppata dall'enemy, il suo contatore aumenta e la gemma si disattiva
-
     private void OnTriggerEnter(Collider other)
     {
+        //se il player entra nel trigger della gemma, il suo contatore aumenta e la gemma si disattiva
         if (other.CompareTag("BombGem"))
         {
             gemCount++;
             other.gameObject.SetActive(false);
         }
+
+        //se il player entra nel trigger dei punti esperienza (sfere azzurre), il punteggio aumenta e la sfera azzurra si disattiva
         if (other.CompareTag("XP"))
         {
-            XPCount += 20;
-            score = GM._score + 20;
+            XPCount += 20;                          //questo punteggio si resetta in ogni livello
+            score = GM._score + 20;                 //questo si mantiene da un livello all'altro
             ScoreRecord();
             other.gameObject.SetActive(false);
         }
+
+        //se il player entra nel trigger dei cuori dorati, la vita aumenta e il cuore si disattiva
         if (other.CompareTag("HP"))
         {
-            if (health <= (maxHP - 20))
+            if (health <= (maxHP - 20))             //solo se la vita del player è minore del totale meno la quantità di vita recuperabile, il cuore viene raccolto
             {
                 health += 20;
-                HealSound.Play();
+                HealSound.Play();                   //ogni volta che la vita aumenta grazie ai cuori raccolti, c'è un effetto sonoro
                 Destroy(other.gameObject);
             }
         }
+
+        //se il player entra nel trigger dell'inizio livello 2, il gioco va in play e il trigger si distrugge
         if (other.CompareTag("StartLevel_2"))
         {
             GM.gameStatus = GameManager.GameStatus.gameRunning;
             l2 = true;
             Destroy(other);
         }
+
+        //se il player entra nel trigger dell'inizio livello 3, il gioco va in play e il trigger si distrugge
         if (other.CompareTag("StartLevel_3"))
         {
             GM.gameStatus = GameManager.GameStatus.gameRunning;
             l3 = true;
             Destroy(other);
         }
+
+        //se il player entra nel trigger dell'EndLevel alla fine del terzo livello, compare la UI della vita del Boss
         if (other.CompareTag("StopCamera"))
         {
             BossHealthBar.SetActive(true);
         }
-    }
-    private void OnTriggerExit(Collider other)
-    {
+
+        //se il player entra nel trigger dell'EndLevel del primo e del secondo livello, lo status di gioco diventa gameLevelEnd (quindi si attiverà il menù di fine livello)
         if (other.CompareTag("EndLevel"))
         {
             GM.gameStatus = GameManager.GameStatus.gameLevelEnd;
-        }
-        if (other.CompareTag("StopCamera"))
-        {
-            cM.cameraStop = true;
         }
     }
 
@@ -159,27 +160,35 @@ public class PlayerMovement : MonoBehaviour
     {
         if (coll.collider.CompareTag("EnemyWeapon"))
         {
+            //ad ogni colpo subito dal player corrisponde un suono 
             HitSound.Play();
+
+            //se gli HP del player sono > 0 i punti vita diminuiscono del valore dato dal danno della trappola
             if (health > 0)
             {
-                health -= trapDamage;                           //se gli HP del player sono > 0 i punti vita diminuiscono del valore dato dal danno della trappola
+                health -= trapDamage;
             }
+            //se gli HP sono <= 0 il player muore
             if (health <= 0)
             {
-                Death();                                        //se gli HP sono <= 0 il player muore
+                Death();
             }
-            coll.gameObject.SetActive(false);
+
+            //il proiettile si distrugge
+            Destroy(coll.gameObject);
         }
+
+        //quando il player collide con l'Enemy, perde vita e produce un effetto sonoro
         if (coll.collider.CompareTag("Enemy"))
         {
             HitSound.Play();
             if (health > 0)
             {
-                health -= trapDamage;                           //se gli HP del player sono > 0 i punti vita diminuiscono del valore dato dal danno dell'enemy
+                health -= trapDamage;
             }
             if (health <= 0)
             {
-                Death();                                        //se gli HP sono <= 0 il player muore
+                Death();
             }
         }
     }
@@ -189,19 +198,25 @@ public class PlayerMovement : MonoBehaviour
     public void Death()
     {
         GM.gameStatus = GameManager.GameStatus.gameOver;
-        if (l2 == false && l3 == false)
+
+        //se si muore al livello 1 viene reloadata la scena 1
+        if (l2 == false)
         {
             SceneManager.LoadScene("Level_1", LoadSceneMode.Single);
             gemCount = 0;
             health = maxHP;
         }
+
+        //se si muore al livello 2 viene reloadata la scena 2
         else if (l2 == true && l3 == false)
         {
             SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
             gemCount = 0;
             health = maxHP;
         }
-        else if (l2= true && l3==true)
+
+        //se si muore al livello 3 viene reloadata la scena 3
+        else if (l3 == true)
         {
             SceneManager.LoadScene("Level_3", LoadSceneMode.Single);
             gemCount = 0;
@@ -209,12 +224,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    
+    //lo score viene aggiornato e mantenuto grazie al GameManager sempre presente in scena (e mai distruttibile nel passaggio tra una scena e l'altra)
     public void ScoreRecord()
     {
         GM._score = score;
     }
 
+    //per i primi due secondi il soundtrack avrà un volume basso, dopo quei secondi, aumenta
     public IEnumerator SoundVolume()
     {
         yield return new WaitForSeconds(2);
