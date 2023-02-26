@@ -63,10 +63,9 @@ public class GameManager : MonoBehaviour
             UM.Continue();
         }
 
-        //in caso di sconfitta ci si assicura che al restart non si attivi lo StartCanvas e che si attivi il DefeatCanvas
+        //in caso di sconfitta ci si assicura che si attivi il DefeatCanvas
         if (gameStatus == GameStatus.gameOver)
         {
-            UM.startCanvas.SetActive(false);
             UM.defeatCanvas.SetActive(true);
         }
     }

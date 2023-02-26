@@ -164,7 +164,7 @@ public class UIManager : MonoBehaviour
         pauseCanvas.SetActive(false);
     }
 
-    //Tasto Restart del PauseCanvas e dell'EndCanvas
+    //Tasto Restart del PauseCanvas, del DefeatCanvas e dell'EndCanvas
     public void Restart()
     {
         SceneManager.LoadScene("Level_1", LoadSceneMode.Single);
