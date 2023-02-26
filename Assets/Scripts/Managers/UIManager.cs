@@ -77,7 +77,7 @@ public class UIManager : MonoBehaviour
         if (GM.gameStatus == GameManager.GameStatus.gameEnd)
         {
             //il punteggio totale si aggiorna
-            TotPointsText.text = pM.score.ToString("000");
+            TotPointsText.text = GM._score.ToString("000");
         }
     }
 
@@ -178,14 +178,6 @@ public class UIManager : MonoBehaviour
 
         GM.gameStatus = GameManager.GameStatus.gameStart;
         pauseCanvas.SetActive(false);
-    }
-
-    //tasto Retry del DefeatCanvas
-    public void Retry()
-    {
-        //GM._score = 0;
-        GM.gameStatus = GameManager.GameStatus.gameRunning;
-        defeatCanvas.SetActive(false);
     }
 
     //tasto Quit di tutti i Canvas

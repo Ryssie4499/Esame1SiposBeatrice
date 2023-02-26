@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
         //se il player entra nel trigger dell'inizio livello 2, il gioco va in play e il trigger si distrugge
         if (other.CompareTag("StartLevel_2"))
         {
-            GM.gameStatus = GameManager.GameStatus.gameRunning;
+            //GM.gameStatus = GameManager.GameStatus.gameRunning;
             l2 = true;
             Destroy(other);
         }
@@ -136,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
         //se il player entra nel trigger dell'inizio livello 3, il gioco va in play e il trigger si distrugge
         if (other.CompareTag("StartLevel_3"))
         {
-            GM.gameStatus = GameManager.GameStatus.gameRunning;
+            //GM.gameStatus = GameManager.GameStatus.gameRunning;
             l3 = true;
             Destroy(other);
         }
@@ -155,7 +155,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //se il player collide con la trappola droppata dall'enemy, si aggiorna la vita del player e la trappola si disattiva
-
     private void OnCollisionEnter(Collision coll)
     {
         if (coll.collider.CompareTag("EnemyWeapon"))
@@ -193,35 +192,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //alla morte del player, la scena si resetta e il gioco ricomincia da capo, senza collectible e con i massimi HP
-
+    //alla morte del player, il gioco va in GameOver
     public void Death()
     {
         GM.gameStatus = GameManager.GameStatus.gameOver;
-
-        //se si muore al livello 1 viene reloadata la scena 1
-        if (l2 == false)
-        {
-            SceneManager.LoadScene("Level_1", LoadSceneMode.Single);
-            gemCount = 0;
-            health = maxHP;
-        }
-
-        //se si muore al livello 2 viene reloadata la scena 2
-        else if (l2 == true && l3 == false)
-        {
-            SceneManager.LoadScene("Level_2", LoadSceneMode.Single);
-            gemCount = 0;
-            health = maxHP;
-        }
-
-        //se si muore al livello 3 viene reloadata la scena 3
-        else if (l3 == true)
-        {
-            SceneManager.LoadScene("Level_3", LoadSceneMode.Single);
-            gemCount = 0;
-            health = maxHP;
-        }
     }
 
     //lo score viene aggiornato e mantenuto grazie al GameManager sempre presente in scena (e mai distruttibile nel passaggio tra una scena e l'altra)
