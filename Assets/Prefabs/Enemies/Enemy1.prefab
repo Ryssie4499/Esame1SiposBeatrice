@@ -93,9 +93,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8047838779272032382}
-  - component: {fileID: 1604043239053096193}
   - component: {fileID: 3975281368338166945}
   - component: {fileID: 77600592025146048}
+  - component: {fileID: -4793690969399397363}
   m_Layer: 7
   m_Name: Enemy1
   m_TagString: Enemy
@@ -119,28 +119,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1604043239053096193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8047838779272032381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d02611adf434c945a96fbc872d62fcf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BombGem: {fileID: 8229384787176473064, guid: 18d33f837a1be1c499294effb5b3c81c, type: 3}
-  XP: {fileID: 4570880857295252099, guid: 9cc6da5e62bd11849a3f49cd86b01340, type: 3}
-  EnemyWeapon: {fileID: 7849164112745919480, guid: ee01b287f820acb4585556e91dd8c753, type: 3}
-  maxHP: 30
-  health: 0
-  movementSpeed: 2
-  bulletDamage: 10
-  bombDamage: 30
-  spawnRate: 0
-  EnemyDeathSound: {fileID: 0}
 --- !u!65 &3975281368338166945
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -206,6 +184,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-4793690969399397363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8047838779272032381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69ea706594bf734bacab83c8bc0f6f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnRate: 0
+  BombGem: {fileID: 8229384787176473064, guid: 18d33f837a1be1c499294effb5b3c81c, type: 3}
+  XP: {fileID: 4570880857295252099, guid: 9cc6da5e62bd11849a3f49cd86b01340, type: 3}
+  EnemyWeapon: {fileID: 7849164112745919480, guid: ee01b287f820acb4585556e91dd8c753, type: 3}
+  maxHP: 30
+  health: 0
+  movementSpeed: 2
+  bulletDamage: 10
+  bombDamage: 30
+  chance: 0
+  spawnTimer: 0
+  up: 0
+  down: 0
+  pM: {fileID: 0}
+  GM: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!1 &8047838779302742254
 GameObject:
   m_ObjectHideFlags: 0
